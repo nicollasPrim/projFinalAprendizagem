@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: rgb(39, 39, 39);
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    min-height: 100vh;
+    background-size: 400% 400%;
+    animation: gradientFlow 20s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header {
+    background: rgba(32, 32, 134, 0.8);
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 2em;
+    border-bottom: 3px solid #ffffff55;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 15px #0044ff88;
+}
+
+header h1 {
+    font-size: 1.8em;
+    letter-spacing: 1.5px;
+}
+
+main {
+    padding: 40px 20px 80px;
+    text-align: center;
+}
+
+.acessos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.acessos div {
+    background: linear-gradient(145deg, #220044, #000033);
+    border: 2px solid #ffffff33;
+    border-radius: 16px;
+    box-shadow: 0 0 15px #ffffff22;
+    width: 180px;
+    height: 180px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.acessos div:hover {
+    transform: scale(1.06);
+    background: linear-gradient(145deg, #000266, #000533);
+    box-shadow: 0 0 20px #001aff99;
+}
+
+.acessos a {
+    color: #ffffff;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.acessos img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.funcs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    width: 400px;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+input {
+    background-color: #ffffff11;
+    color: #ffffff;
+    border: 1px solid #ffffff33;
+    box-shadow: inset 0 0 5px #ffffff22;
+}
+
+input::placeholder {
+    color: #ffffffaa;
+}
+
+input:focus {
+    background-color: #0e0e0e22;
+    border-color: #0026ff99;
+    box-shadow: 0 0 8px #0011ff88;
+}
+
+button {
+    background-color: #0051ff99;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 12px #0004ff66;
+}
+
+button:hover {
+    background-color: #ffffff22;
+    color: #00a2ff;
+    border: 1px solid #003cff99;
+    box-shadow: 0 0 16px #00aeffbb;
+}
+
+.tag {
+    background-color: #000279;
+    border: 1px solid #ffffff55;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: 0.3s;
+}
+
+.tag:hover {
+    background-color: #2d6491;
+}
+
+.tag a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer {
+    background: rgba(45, 58, 99, 0.85);
+    color: #ffffffcc;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9em;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 -4px 12px #00000066;
+}
+
+.voltar {
+    position: fixed;
+    bottom: 75px;
+    left: 20px;
+    background-color: #000279;
+    border: 1px solid #ffffff55;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: 0.3s;
+    color: white;
+    text-decoration: none;
+}
+
+.cadastro-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px; /* Espaço entre os blocos */
+    margin-top: 70px;
+    flex-wrap: wrap; /* Responsivo em telas menores */
+}
+
+.funcs_cad,
+.res {
+    flex: 1;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    align-items: flex-start;
+}
