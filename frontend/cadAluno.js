@@ -26,14 +26,14 @@ cadastrar.addEventListener("click", (e) => {
         body: JSON.stringify(dados)
     })
     .then(ressp => ressp.json())
-    .then(dados => {
+    .then(aluno => {
         res.innerHTML = ``
         res.innerHTML += `Cadastro feito com sucesso!<br><br>`
-        res.innerHTML += `Código do aluno: ${cod_aluno}<br>`
-        res.innerHTML += `Nome: ${nome}<br>`
-        res.innerHTML += `Sobrenome: ${sobrenome}<br>`
-        res.innerHTML += `Matrícula: ${matricula}<br>`
-        res.innerHTML += `Telefone: ${telefone}<br>`
-        res.innerHTML += `Email: ${email}<br>`
+        res.innerHTML += `Código do aluno: ${aluno.codAluno}<br>`
+        res.innerHTML += `Nome: ${aluno.nome}<br>`
+        res.innerHTML += `Sobrenome: ${aluno.sobrenome}<br>`
+        res.innerHTML += `Matrícula: ${aluno.matricula}<br>`
+        res.innerHTML += `Telefone: ${aluno.telefone}<br>`
+        res.innerHTML += `Email: ${aluno.email}<br>`
     })
 })
