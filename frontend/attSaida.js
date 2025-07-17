@@ -1,68 +1,128 @@
-let res = document.getElementById('res')
-let cadastrar = document.getElementById('cadastrar')
-let buscar = document.getElementById('buscar')
+const res = document.getElementById('res')
+const buscar = document.getElementById('buscar')
+const atualizar = document.getElementById('atualizar')
 
-buscar.addEventListener('click', (e) =>{
-    const id = document.getElementById("id").value
-    
-    fetch(`http://localhost:8081/saida/${id}`)
-    .then(ressp => ressp.json())
-    .then(produto => {
-        res.innerHTML = ""
-        document.getElementById('nm_professor').value = saida.nm_professor
-        document.getElementById('hr_retorno').value = saida.hr_retorno
-        document.getElementById('localDest').value = saida.localDest
-        document.getElementById('nm_aluno').value = saida.nm_aluno
-        document.getElementById('hr_saida').value = saida.hr_saida
-        document.getElementById('status').value = saida.status
-        document.getElementById('motivo').value = saida.motivo
+const id = document.getElementById('id')
+const dataSol = document.getElementById('dataSol')
+const horaSaida = document.getElementById('horaSaida')
+const horaRet = document.getElementById('horaRet')
+const motivo = document.getElementById('motivo')
+const localDest = document.getElementById('localDest')
+const status = document.getElementById('status')
+const nmAluno = document.getElementById('nmAluno')
+const nmProf = document.getElementById('nmProf')
+let alunoCod = null
+let profCod = null
+
+buscar.addEventListener('click', () => {
+  if (!id.value) {
+    res.innerHTML = 'Informe o CÓDIGO da saída!<br>'
+    res.style.backgroundColor = 'lightcoral'
+    return
+  }
+
+  fetch(`http://localhost:8081/saida/${id.value}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Saída não encontrada')
+      }
+      return response.json()
     })
-    .catch(erro => {
-        res.innerHTML = `Erro ao consultar entrega: ${erro}`
-        console.error("Erro:", erro)
+    .then(saida => {
+
+        alunoCod = saida.aluno?.codAluno
+        profCod = saida.professor?.codProfessor
+        dataSol.value = saida.dataSolicitacao
+        horaSaida.value = saida.horaSaida
+        horaRet.value = saida.horaRetorno
+        motivo.value = saida.motivo
+        localDest.value = saida.localDestino
+        status.value = saida.status
+        nmAluno.value = saida.nomeAluno || saida.aluno?.nome || ''
+        nmProf.value = saida.nomeProfessor || saida.professor?.nome || ''
+
     })
-})
-
-cadastrar.addEventListener('click', (e)=>{
-    e.preventDefault()
-
-    const dt_solicita = document.getElementById("dt_solicita").value
-    const hr_retorno = document.getElementById("hr_retorno").value
-    const localDest = document.getElementById("localDest").value
-    const nm_aluno = document.getElementById("nm_aluno").value
-    const hr_saida = document.getElementById("hr_saida").value
-    const nm_prof = document.getElementById("nm_prof").value
-    const status = document.getElementById("status").value
-    const motivo = document.getElementById("motivo").value
-    
-    const dados = {
-        dataSolicitacao: dt_solicita,
-        horaSaida: hr_saida,
-        horaRetorno: hr_retorno,
-        motivo: motivo,
-        localDestino: localDest,
-        status: status,
-        nomeAluno: nm_aluno,
-        nomeProfessor: nm_prof
-    }
-
-    fetch("http://localhost:8081/saida", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dados)
-    })
-    .then(resp => resp.json())
-    .then(resultado => {
-        res.innerHTML = ``
-        res.innerHTML += `Status: ${status}<br>`
-        res.innerHTML += ``
-        res.innerHTML += `Hora de retorno: ${nm_prof}<br>`
-        res.innerHTML += `Hora de saida: ${nm_prof}<br>`
-        res.innerHTML += `Motivo: ${motivo}<br>`
-        res.innerHTML += `Local de destino: ${localDest}<br>`
-        res.innerHTML += `Nome aluno: ${nm_aluno}<br>`
-        res.innerHTML += `Nome professor: ${nm_prof}<br>`
+    .catch(error => {
+      res.style.backgroundColor = 'lightcoral'
+      res.innerHTML = 'Erro ao buscar saída: ' + error.message
+      console.error('Erro ao buscar saída:', error)
     })
 })
+
+atualizar.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  if (!id.value) {
+    res.style.backgroundColor = 'lightcoral';
+    res.innerHTML = 'Busque uma saída antes de editar!';
+    return;
+  }
+
+  if (
+    dataSol.value && horaSaida.value && horaRet.value &&
+    motivo.value && localDest.value && status.value &&
+    nmAluno.value && nmProf.value
+  ) {
+
+    console.log('Enviando objeto para PUT:', {
+    id: parseInt(id.value),
+    aluno_cod: alunoCod,
+    professor_cod: profCod,
+    dataSolicitacao: dataSol.value,
+    horaSaida: horaSaida.value,
+    horaRetorno: horaRet.value,
+    motivo: motivo.value,
+    localDestino: localDest.value,
+    status: status.value,
+    nomeAluno: nmAluno.value,
+    nomeProfessor: nmProf.value
+    });
+
+    fetch(`http://localhost:8081/saida/${id.value}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: parseInt(id.value),
+        aluno_cod: alunoCod,
+        professor_cod: profCod,
+        dataSolicitacao: dataSol.value,
+        horaSaida: horaSaida.value,
+        horaRetorno: horaRet.value,
+        motivo: motivo.value,
+        localDestino: localDest.value,
+        status: status.value,
+        nomeAluno: nmAluno.value,
+        nomeProfessor: nmProf.value
+      })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao atualizar');
+        }
+        return response.json();
+      })
+      .then(data => {
+        res.style.backgroundColor = 'lightgreen';
+        res.innerHTML = 'Saída atualizada com sucesso!<br><br>';
+        res.innerHTML += `Código da saída: ${data.id}<br>`;
+        res.innerHTML += `Código do aluno: ${data.aluno.codAluno}<br>`;
+        res.innerHTML += `Nome aluno: ${data.nomeAluno}<br>`;
+        res.innerHTML += `Código do professor: ${data.professor.codProfessor}<br>`;
+        res.innerHTML += `Nome professor: ${data.nomeProfessor}<br>`;
+        res.innerHTML += `Motivo: ${data.motivo}<br>`;
+        res.innerHTML += `Local de destino: ${data.localDestino}<br>`;
+        res.innerHTML += `Hora de saída: ${data.horaSaida}<br>`;
+        res.innerHTML += `Hora de retorno: ${data.horaRetorno}<br>`;
+        res.innerHTML += `Status: ${data.status}<br>`;
+      })
+      .catch(error => {
+        res.innerHTML = 'Erro ao atualizar saída: ' + error.message;
+        console.error('Erro:', error);
+      });
+  } else {
+    res.style.backgroundColor = 'lightcoral';
+    res.innerHTML = 'Preencha todos os campos!';
+  }
+});
