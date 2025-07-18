@@ -14,7 +14,9 @@ listar.addEventListener("click", () => {
                 <p><strong>Sobrenome:</strong> ${aluno.sobrenome || 'N/A'}</p>
                 <p><strong>Matrícula:</strong> ${aluno.matricula || 'N/A'}</p>
                 <p><strong>Telefone:</strong> ${aluno.telefone || 'N/A'}</p>
-                <p><strong>Email:</strong> ${aluno.email || 'N/A'}</p>`;
+                <p><strong>Email:</strong> ${aluno.email || 'N/A'}</p>
+                <hr style="height: 2px; background-color: #000033; border: none;">
+                `;
         });
         if (dados.length === 0) {
             res.innerHTML = "Nenhum aluno cadastrado.";

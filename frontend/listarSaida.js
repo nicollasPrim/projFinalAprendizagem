@@ -16,7 +16,9 @@ listar.addEventListener("click", () => {
             res.innerHTML += `Local de destino: ${saida.localDestino}<br>`;
             res.innerHTML += `Hora de saída: ${saida.horaSaida}<br>`;
             res.innerHTML += `Hora de retorno: ${saida.horaRetorno}<br>`;
-            res.innerHTML += `Status: ${saida.status}<br>`;
+            res.innerHTML += `Status: ${saida.status}<br>
+            <hr style="height: 2px; background-color: #000033; border: none;">
+            `;
         });
     })
     .catch(erro => {

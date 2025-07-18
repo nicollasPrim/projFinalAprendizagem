@@ -122,9 +122,10 @@ main p[style*="color:red"] {
     flex-wrap: wrap;
     gap: 30px;
     margin-top: 50px;
+    text-align: center;
 }
 
-.acessos div {
+.acessos #alunoAcs, .acessos #saidaAcs, .acessos #profAcs {
     background: linear-gradient(145deg, #220044, #000033);
     border: 2px solid #ffffff33;
     border-radius: 16px;
@@ -134,9 +135,14 @@ main p[style*="color:red"] {
     padding: 20px;
     transition: all 0.3s ease;
     backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
-.acessos div:hover {
+.acessos #alunoAcs:hover, .acessos #profAcs:hover, .acessos #saidaAcs:hover {
     transform: scale(1.06);
     background: linear-gradient(145deg, #000266, #000533);
     box-shadow: 0 0 20px #001aff99;

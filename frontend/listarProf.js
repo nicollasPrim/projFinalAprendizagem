@@ -19,7 +19,9 @@ listar.addEventListener("click", () => {
                 <p><strong>Sobrenome:</strong> ${professor.sobrenome || 'N/A'}</p>
                 <p><strong>Matrícula:</strong> ${professor.matricula || 'N/A'}</p>
                 <p><strong>Telefone:</strong> ${professor.telefone || 'N/A'}</p>
-                <p><strong>Email:</strong> ${professor.email || 'N/A'}</p><hr>`;
+                <p><strong>Email:</strong> ${professor.email || 'N/A'}</p>
+                <hr style="height: 2px; background-color: #000033; border: none;">
+                `;
         })
     })
     .catch(erro => {
